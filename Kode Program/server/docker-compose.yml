@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    restart: always
+    volumes:
+      - uploads:/app/uploads
+
+volumes:
+  uploads:

@@ -1,0 +1,88 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #542d48;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+select:disabled {
+  background-color: #f3f4f6; /* Abu-abu muda */
+  color: #6b7280; /* Abu-abu gelap untuk teks */
+  cursor: not-allowed; /* Icon cursor "not allowed" */
+}
+
+.custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.3rem center;
+  background-size: 1em;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-highlight {
+  0% { background-color: #fee2e2; }
+  50% { background-color: #fecaca; }
+  100% { background-color: #fee2e2; }
+}
+
+.highlight-item {
+  animation: pulse-highlight 2s ease-in-out infinite;
+}
+
+.react-select-container {
+  position: relative;
+}
+
+.react-select__menu {
+  position: absolute;
+  z-index: 9999 !important;
+}
+
+.react-select__control {
+  min-height: 40px;
+}
+
+/* Di file CSS global Anda */
+.highlighted-row {
+  animation: highlight-fade 5s ease-out;
+  background-color: rgba(255, 0, 0, 0.814); /* Warna kuning transparan */
+}
+
+@keyframes highlight-fade {
+  0% { background-color: rgb(255, 0, 0); }
+  100% { background-color: transparent; }
+}

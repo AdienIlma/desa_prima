@@ -1,0 +1,42 @@
+[
+  {
+    "id": "3402130001",
+    "district_id": "3402130",
+    "name": "Tamanan"
+  },
+  {
+    "id": "3402130002",
+    "district_id": "3402130",
+    "name": "Jagalan"
+  },
+  {
+    "id": "3402130003",
+    "district_id": "3402130",
+    "name": "Singosaren"
+  },
+  {
+    "id": "3402130004",
+    "district_id": "3402130",
+    "name": "Wirokerten"
+  },
+  {
+    "id": "3402130005",
+    "district_id": "3402130",
+    "name": "Jambidan"
+  },
+  {
+    "id": "3402130006",
+    "district_id": "3402130",
+    "name": "Potorono"
+  },
+  {
+    "id": "3402130007",
+    "district_id": "3402130",
+    "name": "Baturetno"
+  },
+  {
+    "id": "3402130008",
+    "district_id": "3402130",
+    "name": "Banguntapan"
+  }
+]

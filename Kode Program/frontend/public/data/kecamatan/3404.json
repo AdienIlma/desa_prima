@@ -1,0 +1,87 @@
+[
+  {
+    "id": "3404010",
+    "regency_id": "3404",
+    "name": "Moyudan"
+  },
+  {
+    "id": "3404020",
+    "regency_id": "3404",
+    "name": "Minggir"
+  },
+  {
+    "id": "3404030",
+    "regency_id": "3404",
+    "name": "Seyegan"
+  },
+  {
+    "id": "3404040",
+    "regency_id": "3404",
+    "name": "Godean"
+  },
+  {
+    "id": "3404050",
+    "regency_id": "3404",
+    "name": "Gamping"
+  },
+  {
+    "id": "3404060",
+    "regency_id": "3404",
+    "name": "Mlati"
+  },
+  {
+    "id": "3404070",
+    "regency_id": "3404",
+    "name": "Depok"
+  },
+  {
+    "id": "3404080",
+    "regency_id": "3404",
+    "name": "Berbah"
+  },
+  {
+    "id": "3404090",
+    "regency_id": "3404",
+    "name": "Prambanan"
+  },
+  {
+    "id": "3404100",
+    "regency_id": "3404",
+    "name": "Kalasan"
+  },
+  {
+    "id": "3404110",
+    "regency_id": "3404",
+    "name": "Ngemplak"
+  },
+  {
+    "id": "3404120",
+    "regency_id": "3404",
+    "name": "Ngaglik"
+  },
+  {
+    "id": "3404130",
+    "regency_id": "3404",
+    "name": "Sleman"
+  },
+  {
+    "id": "3404140",
+    "regency_id": "3404",
+    "name": "Tempel"
+  },
+  {
+    "id": "3404150",
+    "regency_id": "3404",
+    "name": "Turi"
+  },
+  {
+    "id": "3404160",
+    "regency_id": "3404",
+    "name": "Pakem"
+  },
+  {
+    "id": "3404170",
+    "regency_id": "3404",
+    "name": "Cangkringan"
+  }
+]

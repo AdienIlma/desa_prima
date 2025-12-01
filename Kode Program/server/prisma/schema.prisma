@@ -1,0 +1,222 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Kabupaten {
+  id             Int       @id @default(autoincrement())
+  nama_kabupaten String
+  jumlah_desa    Int
+  pendampingId   Int?      @unique  // ← tambahkan ini
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  KelompokDesa   KelompokDesa[]
+  Users          User[]        @relation("UserToKabupaten")
+  Pendamping     User?         @relation("PendampingToKabupaten", fields: [pendampingId], references: [id], onDelete: SetNull)
+}
+
+model KelompokDesa {
+  id                      Int         @id @default(autoincrement())
+  nama                    String
+  kabupaten_kota          String  
+  kecamatan               String
+  kelurahan               String
+  kabupatenNama           String?
+  kecamatanNama           String?
+  kelurahanNama           String
+  tanggal_pembentukan     DateTime
+  jumlah_anggota_awal     Int
+  kategori                String?
+  jumlah_hibah_diterima   Int
+  status                  String?
+  catatan                 String?
+  latitude                Float?
+  longitude               Float?
+  kabupatenId             Int?
+  createdAt               DateTime    @default(now())
+  updatedAt               DateTime    @updatedAt
+  Kabupaten               Kabupaten?  @relation(fields: [kabupatenId], references: [id], onDelete: Cascade)
+  UserMembers            User[]      @relation("UserToKelompok")
+
+  Kegiatan                  Kegiatan[]
+  Laporan               Laporan[]
+  Anggota                 Anggota[]
+  Produk                  Produk[]
+  kas                     kas[]
+  Pelaporan               Pelaporan[]
+
+  @@index([kabupatenId], name: "KelompokDesa_kabupatenId_idx")
+}
+
+model Kegiatan {
+  id                Int            @id @default(autoincrement())
+  nama_kegiatan     String         // Contoh: "Pelatihan Digital Marketing"
+  uraian            String?        // Deskripsi lengkap kegiatan
+  file_materi       String?        // Path/link file materi (PDF, PPT, dll)
+  file_notulensi    String?        // Path/link notulensi (PDF/Doc)
+  tanggal           DateTime       @default(now()) // Tanggal pelaksanaan
+  catatan           String?
+  kelompokId        Int
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  // Relasi
+  KelompokDesa      KelompokDesa   @relation(fields: [kelompokId], references: [id], onDelete: Cascade)
+  FotoKegiatan      FotoKegiatan[] // Satu kegiatan bisa punya banyak foto
+  Pelaporan         Pelaporan[]
+
+  @@index([kelompokId], name: "Kegiatan_kelompokId_idx")
+}
+
+model FotoKegiatan {
+  id          Int       @id @default(autoincrement())
+  gambar      String    // Path/link foto
+  kegiatanId  Int
+  Kegiatan    Kegiatan  @relation(fields: [kegiatanId], references: [id], onDelete: Cascade)
+
+  @@index([kegiatanId], name: "FotoKegiatan_kegiatanId_idx")
+}
+
+model Laporan {
+  id                Int      @id @default(autoincrement())
+  nama_laporan      String?
+  file              String
+  deskripsi         String
+  catatan           String?
+  kelompokId        Int
+  Pelaporan         Pelaporan[]
+  createdAt         DateTime @default(now())
+  KelompokDesa      KelompokDesa @relation(fields: [kelompokId], references: [id], onDelete: Cascade)
+
+  @@index([kelompokId], name: "Laporan_kelompokId_idx")
+}
+
+model Produk {
+  id              Int      @id @default(autoincrement())
+  nama            String
+  harga_awal      Int
+  harga_akhir     Int
+  foto            String
+  deskripsi       String
+  catatan         String?
+  kelompokId      Int
+  anggotaId       Int?     // Tambahkan relasi ke Anggota
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  KelompokDesa    KelompokDesa @relation(fields: [kelompokId], references: [id])
+  Anggota         Anggota?      @relation(fields: [anggotaId], references: [id])
+  Pelaporan       Pelaporan[]
+
+  @@index([kelompokId], name: "Produk_kelompokId_idx")
+}
+
+enum jabatan {
+  Ketua
+  Sekretaris
+  Bendahara
+  Anggota
+}
+
+model Anggota {
+  id              Int         @id @default(autoincrement())
+  nama            String
+  jabatan         jabatan
+  nohp            String?
+  sertifikasi     String?
+  kelompokId      Int
+  catatan         String?
+  createdAt       DateTime    @default(now())
+
+  KelompokDesa    KelompokDesa @relation(fields: [kelompokId], references: [id])
+  Produk          Produk[]     // Satu anggota bisa punya banyak produk
+  Pelaporan       Pelaporan[]
+  User            User?        @relation("UserToAnggota")
+
+  @@index([kelompokId], name: "Anggota_kelompokId_idx")
+}
+
+enum jenis_transaksi {
+  Pemasukan
+  Pengeluaran
+}
+
+model kas {
+  id              Int          @id @default(autoincrement())
+  tgl_transaksi   DateTime     @db.DateTime(0)
+  jenis_transaksi jenis_transaksi
+  nama_transaksi  String
+  total_transaksi Int
+  kelompokId      Int
+  file            String
+  catatan         String?
+  Pelaporan       Pelaporan[]
+  createdAt       DateTime     @default(now()) @db.DateTime(0)
+  KelompokDesa    KelompokDesa @relation(fields: [kelompokId], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "Kas_kelompokId_fkey")
+
+  @@index([kelompokId], map: "Kas_kelompokId_idx")
+}
+
+enum role {
+  Admin
+  Pegawai
+  Pengurus
+  Pendamping
+}
+
+model User {
+  id                    Int        @id @default(autoincrement())
+  name                  String
+  email                 String     @unique
+  password              String
+  role                  role
+  nip                   String?    @unique
+  kabupatenId           Int?      
+  kelompokId            Int?
+  anggotaId             Int?       @unique
+  sendEmail             Boolean    @default(false)
+  resetPasswordToken    String?    
+  resetPasswordExpires  DateTime?
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @updatedAt
+
+  Pelaporan         Pelaporan[]
+  Anggota           Anggota?        @relation("UserToAnggota", fields: [anggotaId], references: [id], onDelete: SetNull)
+  Kabupaten         Kabupaten?      @relation("UserToKabupaten", fields: [kabupatenId], references: [id], onDelete: SetNull)
+  Kelompok          KelompokDesa?   @relation("UserToKelompok", fields: [kelompokId], references: [id], onDelete: SetNull)
+  KabupatenPendamping Kabupaten?    @relation("PendampingToKabupaten")
+}
+
+model Pelaporan {
+  id               Int            @id @default(autoincrement())
+  tgl_lapor        DateTime       @db.DateTime(0)
+  deskripsi        String?
+  userId           Int?
+  kelompokId       Int
+  laporanId        Int?           // Diubah menjadi optional
+  kegiatanId       Int?           // Diubah menjadi optional
+  produkId         Int?           // Diubah menjadi optional
+  kasId            Int?           // Diubah menjadi optional
+  anggotaId        Int?           // Diubah menjadi optional
+  isBatchUpload Boolean @default(false)
+  
+  User            User?          @relation(fields: [userId], references: [id])
+  KelompokDesa    KelompokDesa    @relation(fields: [kelompokId], references: [id], onDelete: Cascade)
+  Laporan         Laporan?      @relation(fields: [laporanId], references: [id], onDelete: Cascade)
+  Kegiatan        Kegiatan?         @relation(fields: [kegiatanId], references: [id], onDelete: Cascade)
+  Produk          Produk?         @relation(fields: [produkId], references: [id], onDelete: Cascade)
+  kas             kas?            @relation(fields: [kasId], references: [id], onDelete: Cascade)
+  Anggota         Anggota?        @relation(fields: [anggotaId], references: [id], onDelete: Cascade)
+
+  @@index([kelompokId])
+  @@index([laporanId])
+  @@index([kegiatanId])
+  @@index([produkId])
+  @@index([kasId])
+  @@index([anggotaId])
+}
