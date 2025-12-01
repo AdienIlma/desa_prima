@@ -37,7 +37,7 @@ const useProvinsiData = (filterKabupaten = null) => {
   const fetchKabupatenData = async () => {
     try {
       const response = await axios.get(
-        "https://ibnux.github.io/data-indonesia/kabupaten/34.json"
+        `/data/kabupaten/34.json`
       );
       return response.data;
     } catch (err) {
@@ -49,7 +49,7 @@ const useProvinsiData = (filterKabupaten = null) => {
   const fetchKecamatan = async (kabupatenId) => {
     try {
       const response = await axios.get(
-        `https://ibnux.github.io/data-indonesia/kecamatan/${kabupatenId}.json`
+        `/data/kecamatan/${kabupatenId}.json`
       );
       return response.data;
     } catch (err) {
@@ -61,7 +61,7 @@ const useProvinsiData = (filterKabupaten = null) => {
   const fetchKelurahan = async (kecamatanId) => {
     try {
       const res = await axios.get(
-        `https://ibnux.github.io/data-indonesia/kelurahan/${kecamatanId}.json`
+        `/data/kelurahan/${kecamatanId}.json`
       );
       return res.data;
     } catch (err) {

@@ -727,7 +727,7 @@ const confirmUpload = async (req, res) => {
 
     // Ambil data referensi wilayah sekali saja
     const wilayahDIY = await axios.get(
-      "https://ibnux.github.io/data-indonesia/kabupaten/34.json"
+      `/data/kabupaten/34.json`
     );
     const kabupatenList = wilayahDIY.data;
 
