@@ -2,7 +2,6 @@
 - Nama             : Adien Ilma Mutafaila
 - Judul            : Pembangunan Sistem Monitoring dan Evaluasi Program Desa PRIMA DP3AP2 DIY
 - Dosen Pembimbing : Budi Yuniarto, S.S.T., M.Si.
-- Deskripsi        : Sistem Monitoring dan Evaluasi Program Desa PRIMA DP3AP2 DIY ditujukan untuk mendukung sistem pelaporan, pencatatan, dan pemantauan program Desa PRIMA. Program Desa PRIMA merupakan progam yang melakukan pendampingan pada desa/kelurahan demi terciptanya pengentasan kemiskinan melalui pemberdayaan perempuan pada bidang ekonomi. Sistem ini digunakan oleh pegawai DP3AP2 DIY dan para pemangku kebijakan yang terlibat, seperti penanggung jawab pelaksanaan program di setiap kabupaten/kota yang disebut pendamping, serta pengurus kelompok di setiap desa/kelurahan.
 - Struktur Folder  : 
     - Kode Program adalah berisi semua file sumber code proyek, seperti kode frontend, kode backend, dan konfigurasi sistem.
     - Panduan berisi dokumentasi yang menjelaskan cara menggunakan atau mengoperasikan sistem yang dikembangkan.
